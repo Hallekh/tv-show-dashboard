@@ -1,6 +1,16 @@
 <template>
     <div class="container">
       <h1>TV Show Dashboard</h1>
+
+      <!-- Search By Show Name -->
+    <div class="search-container">
+      <input
+        v-model="searchQuery"
+        @keyup.enter="searchShows"
+        placeholder="Search shows by name"
+      />
+      <button @click="searchShows">Search</button>
+    </div>
       
       <!-- Genre Filter -->
       <GenreFilter :fetch-shows-by-genre="fetchShowsByGenre" />
@@ -28,11 +38,26 @@
     },
     data() {
       return {
+        searchQuery: '',      // For storing the user search input.
         shows: [],  // Flattened list of shows
         sortOrder: 'desc',  // Default sorting by descending rating
       };
     },
     methods: {
+      searchShows() {
+      const query = this.searchQuery.trim();
+      if (!query) {
+        return;
+      }
+      fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`)
+        .then((response) => response.json())
+        .then((data) => {
+          // The API returns an array of objects where the actual show is in the "show" property.
+          this.shows = data.map(item => item.show);
+          this.sortShows(this.sortOrder);
+        })
+        .catch((error) => console.error('Error searching shows:', error));
+    },
       // Fetch shows based on the selected genre and flatten the list
       fetchShowsByGenre(genre) {
         fetch(`https://api.tvmaze.com/search/shows?q=${genre}`)
@@ -73,5 +98,65 @@
     justify-content: center;
     margin-top: 20px;
   }
+
+  /* Search container styling */
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  padding: 10px;
+  font-size: 16px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+}
+
+button:focus {
+  outline: none; /* Removes the outline on focus */
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.6); /* Add a subtle glow */
+}
+
+.sort-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
   </style>
   
