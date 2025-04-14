@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .tv-show-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+  }
+  

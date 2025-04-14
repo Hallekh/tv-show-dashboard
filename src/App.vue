@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <h1>TV Show Dashboard</h1>
+    <GenreFilter @genre-selected="fetchShowsByGenre" />
+    <ShowList :shows="shows" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GenreFilter from './components/GenreFilter.vue';
+import ShowList from './components/ShowList.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    GenreFilter,
+    ShowList,
+  },
+  data() {
+    return {
+      shows: [],
+    };
+  },
+  methods: {
+    fetchShowsByGenre(genre) {
+      fetch(`https://api.tvmaze.com/search/shows?q=${genre}`)
+        .then(response => response.json())
+        .then(data => {
+          this.shows = data.map(show => show.show);
+        })
+        .catch(error => console.error('Error fetching shows:', error));
+    }
+  },
+  mounted() {
+    this.fetchShowsByGenre('Drama');
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style src="./assets/styles.css"></style>
