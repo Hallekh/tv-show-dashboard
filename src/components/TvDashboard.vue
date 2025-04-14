@@ -6,10 +6,11 @@
     <div class="search-container">
       <input
         v-model="searchQuery"
-        @keyup.enter="searchShows"
+        @input="handleDebouncedSearch"
+        @keyup.enter="handleExplicitSubmit"
         placeholder="Search shows by name"
       />
-      <button @click="searchShows">Search</button>
+      <button @click="handleExplicitSubmit">Search</button>
     </div>
       
       <!-- Genre Filter -->
@@ -27,6 +28,16 @@
   </template>
   
   <script>
+  // debounce helper function
+function debounce(fn, delay) {
+  let timeoutID;
+  return function (...args) {
+    if (timeoutID) clearTimeout(timeoutID);
+    timeoutID = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
   import GenreFilter from './GenreFilter.vue';
   import ShowList from './ShowList.vue';
   
@@ -43,7 +54,26 @@
         sortOrder: 'desc',  // Default sorting by descending rating
       };
     },
+    created() {
+    // Create a debounced version of searchShows.
+    this.debouncedSearch = debounce(this.searchShows, 300);
+  },
     methods: {
+      // Called when the input changes (debounced).
+    handleDebouncedSearch() {
+      // Only search if there is text
+      if (this.searchQuery.trim()) {
+        this.debouncedSearch();
+      }
+    },
+    // Called when the user explicitly submits by pressing Enter or clicking the button.
+    handleExplicitSubmit() {
+      // Perform search immediately.
+      this.searchShows();
+      // Clear the input field after submission.
+      this.searchQuery = '';
+    },
+
       searchShows() {
       const query = this.searchQuery.trim();
       if (!query) {
