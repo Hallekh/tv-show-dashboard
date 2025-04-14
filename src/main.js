@@ -1,24 +1,21 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
-import VueRouter from 'vue-router';
-import ShowDetail from './components/ShowDetail.vue'; // Import the new ShowDetail component
-
-Vue.config.productionTip = false;
-
-// Use Vue Router
-Vue.use(VueRouter);
+import { createRouter, createWebHistory } from 'vue-router';
+import ShowDetail from './components/ShowDetail.vue';
+import TvDashboard from './components/TvDashboard.vue';
 
 // Define routes
 const routes = [
-  { path: '/', component: App },
+  { path: '/', component: TvDashboard },
   { path: '/show/:id', component: ShowDetail, props: true },  // Dynamic route for show details
 ];
 
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHistory(), // Uses the HTML5 history mode
   routes,
 });
 
-new Vue({
-  render: h => h(App),
-  router,  // Pass the router to the Vue instance
-}).$mount('#app');
+// Create and mount the app
+const app = createApp(App);
+app.use(router);
+app.mount('#app');

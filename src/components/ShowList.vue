@@ -1,8 +1,10 @@
 <template>
   <div class="tv-show-list">
     <div v-for="show in shows" :key="show.id" class="tv-show">
+      <router-link :to="`/show/${show.id}`">
       <img :src="show.image ? show.image.medium : 'https://via.placeholder.com/250x375'" alt="Show Image" />
       <h3>{{ show.name }}</h3>
+    </router-link>
       <p>Rating: {{ show.rating.average || 'N/A' }}</p>
       <p>{{ show.genres.join(', ') }}</p>
     </div>
