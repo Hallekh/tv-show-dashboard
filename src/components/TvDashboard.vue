@@ -140,11 +140,28 @@ import AppButton from './AppButton.vue';
   border-radius: 4px;
 }
 
+@media (max-width: 600px) {
+
+  .search-container input, 
+  .search-container button {
+    width: 90%;
+  }
+}
+
 .sort-buttons {
   display: flex;
   justify-content: center;
   margin: 20px;
   gap: 10px;
+}
+
+/* Mobile styling for sort buttons */
+@media (max-width: 600px) {
+  .sort-buttons button {
+    width: 90%;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
 }
   </style>
   

@@ -63,5 +63,20 @@ export default {
   transform: scale(1.1) !important;
   box-shadow: 0 0 12px rgba(108, 52, 131, 0.7) !important;
 }
+/* Media query for mobile */
+@media (max-width: 600px) {
+  .genre-buttons {
+    flex-direction: column; /* Stack vertically on mobile */
+    align-items: center;
+    gap: 0;
+  }
+  .genre-button {
+    width: 70%; /* Full width for better mobile experience */
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 14px;
+  margin: 0x;
+  }
+}
   </style>
   
