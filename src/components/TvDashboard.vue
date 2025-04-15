@@ -10,7 +10,7 @@
         @keyup.enter="handleExplicitSubmit"
         placeholder="Search shows by name"
       />
-      <button @click="handleExplicitSubmit">Search</button>
+      <AppButton variant="secondary" label="Search" @click="handleExplicitSubmit" />
     </div>
       
       <!-- Genre Filter -->
@@ -18,8 +18,8 @@
       
       <!-- Sorting Options -->
       <div class="sort-buttons">
-        <button @click="sortShows('asc')">Sort by Rating (Ascending)</button>
-        <button @click="sortShows('desc')">Sort by Rating (Descending)</button>
+        <AppButton variant="secondary" label="Sort by Rating (Ascending)" @click="sortShows('asc')" />
+        <AppButton variant="secondary" label="Sort by Rating (Descending)" @click="sortShows('desc')" />
       </div>
       
       <!-- Show List -->
@@ -40,12 +40,14 @@ function debounce(fn, delay) {
 }
   import GenreFilter from './GenreFilter.vue';
   import ShowList from './ShowList.vue';
+import AppButton from './AppButton.vue';
   
   export default {
     name: 'TvDashboard',
     components: {
       GenreFilter,
       ShowList,
+      AppButton,
     },
     data() {
       return {
@@ -123,11 +125,6 @@ function debounce(fn, delay) {
   .container {
     padding: 20px;
   }
-  .sort-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
 
   /* Search container styling */
 .search-container {
@@ -145,47 +142,10 @@ function debounce(fn, delay) {
   border-radius: 4px;
 }
 
-.search-container button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.search-container button:hover {
-  background-color: #2980b9;
-  transform: scale(1.05);
-}
-button {
-  padding: 10px 20px;
-  margin: 5px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px; /* Rounded corners */
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-button:hover {
-  background-color: #2980b9; /* Darker blue on hover */
-  transform: scale(1.05); /* Slight scaling effect */
-}
-
-button:focus {
-  outline: none; /* Removes the outline on focus */
-  box-shadow: 0 0 10px rgba(52, 152, 219, 0.6); /* Add a subtle glow */
-}
-
 .sort-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 20px;
   gap: 10px;
 }
   </style>

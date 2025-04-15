@@ -1,6 +1,6 @@
 <template>
     <div class="show-detail">
-      <button @click="goBack">Back to Dashboard</button>
+        <AppButton variant="primary" label="Back to Dashboard" @click="goBack" />
       <!-- Loading indicator -->
     <div v-if="!show.name">
       Loading show details...
@@ -19,8 +19,13 @@
   </template>
   
   <script>
+import AppButton from './AppButton.vue';
+
   export default {
     name: 'ShowDetail',
+    components: {
+      AppButton,
+    },
   
     data() {
       return {
@@ -73,17 +78,5 @@
     line-height: 1.5;
   }
   
-  button {
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #2980b9;
-  }
   </style>
   
