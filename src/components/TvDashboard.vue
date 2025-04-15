@@ -14,11 +14,13 @@
       <AppButton variant="secondary" label="Search" @click="handleExplicitSubmit" />
     </div>
       
-      <!-- Sorting Options -->
-      <div class="sort-buttons">
-        <AppButton variant="secondary" label="Sort by Rating (Ascending)" @click="sortShows('asc')" />
-        <AppButton variant="secondary" label="Sort by Rating (Descending)" @click="sortShows('desc')" />
-      </div>
+      <!-- Single sorting toggle button -->
+    <div class="sort-container">
+      <button @click="toggleSortOrder" class="sort-button">
+        Sort by Rating 
+        <i :class="sortOrder === 'asc' ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+      </button>
+    </div>
       
       <!-- Show List -->
       <ShowList :shows="shows" />
@@ -103,15 +105,18 @@ import AppButton from './AppButton.vue';
       },
   
       // Sort the shows by rating (ascending or descending)
-      sortShows(order) {
-        this.sortOrder = order;
-        this.shows.sort((a, b) => {
-          const ratingA = a.rating.average || 0;
-          const ratingB = b.rating.average || 0;
-          return order === 'asc' ? ratingA - ratingB : ratingB - ratingA;
-        });
-      }
+      toggleSortOrder() {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+      this.sortShows();
     },
+    sortShows() {
+      this.shows.sort((a, b) => {
+        const ratingA = a.rating.average || 0;
+        const ratingB = b.rating.average || 0;
+        return this.sortOrder === 'asc' ? ratingA - ratingB : ratingB - ratingA;
+      });
+    },
+  },
     mounted() {
       // Initially load the "Sports" genre shows
       this.fetchShowsByGenre('Sports');
@@ -148,20 +153,29 @@ import AppButton from './AppButton.vue';
   }
 }
 
-.sort-buttons {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-  gap: 10px;
+/* Sort Button Styling */
+.sort-container {
+  text-align: left;
+  margin: 15px 0;
 }
 
-/* Mobile styling for sort buttons */
-@media (max-width: 600px) {
-  .sort-buttons button {
-    width: 90%;
-    margin-bottom: 10px;
-    font-size: 14px;
-  }
+.sort-button {
+  background-color: #3b536c;
+  color: #ffffff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-button:hover {
+  background-color: #2c3e50;
+  transform: scale(1.05);
 }
   </style>
   
