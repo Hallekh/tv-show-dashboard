@@ -7,7 +7,7 @@
     </div>
     <div v-else>
       <h2>{{ show.name }}</h2>
-      <img :src="show.image ? show.image.medium : 'https://via.placeholder.com/500x750'" alt="Show Image" />
+      <img :src="show.image ? show.image.medium : 'https://placehold.co/250x375'" alt="Show Image" />
       <p><strong>Genres:</strong> {{ show.genres.join(', ') }}</p>
       <p><strong>Rating:</strong> {{ show.rating.average || 'N/A' }}</p>
       <p><strong>Summary:</strong> <span v-html="show.summary"></span></p>
