@@ -11,9 +11,7 @@ Jest is used for unit testing to ensure code reliability.
 GitHub Pages is used for quick deployment and sharing.
 
 🛠️ Setup & Run Locally
-bash
-Копіювати
-Редагувати
+
 # Install dependencies
 npm install
 
