@@ -1,7 +1,8 @@
 <template>
     <div class="container">
-      <h1>TV Show Dashboard</h1>
-
+      <!-- Genre Filter -->
+      <GenreFilter @genre-selected="fetchShowsByGenre" />
+      
       <!-- Search By Show Name -->
     <div class="search-container">
       <input
@@ -12,9 +13,6 @@
       />
       <AppButton variant="secondary" label="Search" @click="handleExplicitSubmit" />
     </div>
-      
-      <!-- Genre Filter -->
-      <GenreFilter :fetch-shows-by-genre="fetchShowsByGenre" />
       
       <!-- Sorting Options -->
       <div class="sort-buttons">

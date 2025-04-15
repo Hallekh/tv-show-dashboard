@@ -1,6 +1,6 @@
 <template>
     <button
-      :class="['app-button', variant]"
+      :class="['app-button', buttonClass, { active: isActive }, variant]"
       :disabled="disabled"
       @click="handleClick"
     >
@@ -20,6 +20,14 @@
         type: Boolean,
         default: false,
       },
+      buttonClass: {
+      type: String,
+      default: '',
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
       variant: {
         type: String,
         default: 'primary',
@@ -67,5 +75,12 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  /* Active state styling */
+.active {
+  background-color: #1abc9c;  /* A contrasting, vibrant color */
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(26, 188, 156, 0.8);
+}
   </style>
   

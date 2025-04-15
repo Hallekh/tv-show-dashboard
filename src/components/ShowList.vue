@@ -31,9 +31,9 @@ export default {
   width: 250px;
   border: 1px solid #ddd;
   padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   min-width: 250px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .tv-show img {
